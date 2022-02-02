@@ -15,6 +15,9 @@ var pagHome = document.querySelector("#pagHome")
 var pagAddText = document.querySelector("#pagText")
 var pagPlay = document.querySelector("#pagPlay")
 
+//Div Search
+var divSearch = document.querySelector("#divSearch")
+
 
 
 btnAddText.addEventListener('click', () => {
@@ -23,22 +26,27 @@ btnAddText.addEventListener('click', () => {
 
 btnCancel.addEventListener('click', () => {
     openClose(pagHome, pagAddText)
+    openClose('',divSearch)
 })
 
 btnPlay.addEventListener('click', () => {
     openClose(pagPlay, pagHome)
+    openClose(divSearch)
 })
 btnCancelPlay.addEventListener('click', () => {
     openClose(pagHome, pagPlay)
+    openClose('',divSearch)
 })
 
 
 btnAddPlay.addEventListener('click', () => {
     openClose(pagPlay, pagAddText)
+    openClose(divSearch)
 })
 
 btnNewPlay.addEventListener('click', () => {
     alert('novo jogo')
+    openClose(divSearch)
 })
 
 
@@ -46,10 +54,20 @@ btnNewPlay.addEventListener('click', () => {
 
 
 //função para abrir e fechar página
-function openClose(pagOpen, pagClose){
-    pagOpen.classList.add('flex')
-    pagOpen.classList.remove('hidden')
+function openClose(pagOpen=null, pagClose=null){
+    if(pagOpen){
+        pagOpen.classList.add('flex')
+        pagOpen.classList.remove('hidden')
+    }
+    if(pagClose){
+        pagClose.classList.add('hidden')
+        pagClose.classList.remove('flex')
+    }else{
+        pagOpen.classList.add('flex')
+        pagOpen.classList.remove('hidden')
+    
+        pagClose.classList.add('hidden')
+        pagClose.classList.remove('flex')
+    }
 
-    pagClose.classList.add('hidden')
-    pagClose.classList.remove('flex')
 }

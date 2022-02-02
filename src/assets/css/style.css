@@ -1,3 +1,9 @@
+*{
+  font-family: 'Lato', sans-serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Rokkitt', serif;
+}
+  
   #logo {
     animation: fade-in 2s normal forwards ease-in-out;
   }
