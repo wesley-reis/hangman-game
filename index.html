@@ -57,7 +57,7 @@
           <div class="flex flex-col items-start w-full mb-16 md:w-2/5 text-[#CDB077]">
             <label class="text-3xl uppercase font-light mb-1" for="input">Digite uma palavra</label>
             <input class="w-full p-3 outline-none bg-transparent border rounded-xl" name="input"
-              id="input" type="text" />
+              id="input" type="text" autofocus/>
           </div>
           <div class="flex flex-col gap-2 w-full md:flex-row md:justify-center md:w-1/2">
             <button id="addPlay"
@@ -122,10 +122,9 @@
         </div>
 
         <!-- Message -->
-        <div id="message" class="bg-gray-50 py-2 px-4 rounded-sm">
+        <div id="message" class="hidden bg-gray-50 py-2 px-4 rounded-sm">
           <p class="text-4xl font-bold text-[#AE5336]">YOU LOSE</p>
           <p class="text-4xl font-bold text-[#608C62]">YOU WIN</p>
-          <p class="text-lg font-bold text-[#608C62]">Palavra já cadastrada</p>
         </div>
 
       </div>
@@ -135,7 +134,7 @@
 
 
     <!-- Footer -->
-    <footer class="mx-auto pb-2 text-[#CDB077]">
+    <footer class="mx-auto pb-2 mt-10 text-[#CDB077]">
       <div class="flex justify-center items-center gap-2 mb-2">
         <a href="https://github.com/wesley-reis" target="__blank">
           <svg class="fill-current" enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0"
@@ -162,9 +161,15 @@
       <a href="https://wrrdev.com" class="text-sm">Desenvolvido por <b>WRRD</b>eveloper</a>
     </footer>
   </div>
+
+  <audio controls autoplay hidden>
+    <source src="./src/assets/audios/victory.mp3" type="audio/mpeg">
+  </audio>
+
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script src="./src/assets/js/main.js"></script>
+    <script src="./src/assets/js/words.js"></script>
+    <script src="./src/assets/js/main.js"></script>
 </body>
 
 </html>
