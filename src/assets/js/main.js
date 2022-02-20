@@ -7,9 +7,6 @@ var btnPlay = document.querySelector("#play")
 var btnNewPlay = document.querySelector("#newPlay")
 var btnCancelPlay = document.querySelector("#cancelPlay")
 
-
-
-
 //Páginas
 var pagHome = document.querySelector("#pagHome")
 var pagAddText = document.querySelector("#pagText")
@@ -24,28 +21,52 @@ let input = document.querySelector('#input')
 //message
 let message = document.querySelector("#message")
 
+//contador de silabas
+let countSilab = document.querySelector("#silab-count")
 
+// search
+let inputSearch = document.querySelector("#inputSearch")
+
+
+//secret text
+var secret =''
+
+//search silab
+inputSearch.addEventListener('keyup', (e) => {
+    var key = e.which || e.keyCode
+    if(key == 13){
+        verifyLeter()
+    }
+})
+
+//open pag e add text
 btnAddText.addEventListener('click', () => {
     openClose(pagAddText, pagHome)
     input.focus()
 
 })
 
+//cancel game
 btnCancel.addEventListener('click', () => {
     openClose(pagHome, pagAddText)
     openClose('',divSearch)
 })
 
+//play game
 btnPlay.addEventListener('click', () => {
+    startGame()
     openClose(pagPlay, pagHome)
-    openClose(divSearch)
+    openClose(divSearch, null)
 })
+//cancel game
 btnCancelPlay.addEventListener('click', () => {
+    clearFrom()
+    stopGame()
     openClose(pagHome, pagPlay)
-    openClose('',divSearch)
+    openClose(null,divSearch)
 })
 
-
+//add text and init game
 btnAddPlay.addEventListener('click', () => {
 
     const ListWords = JSON.parse(localStorage.getItem('words')) || []
@@ -88,23 +109,41 @@ btnAddPlay.addEventListener('click', () => {
             message.classList.add('hidden')
             localStorage.setItem('words', JSON.stringify(ListWords))
 
-
+            clearFrom()
+            startGame()
             openClose(pagPlay, pagAddText)
-            openClose(divSearch)
-        }, 3000)
+            openClose(divSearch, null)
+        }, 2000)
 
    
     }
 
 })
 
+//init new game
 btnNewPlay.addEventListener('click', () => {
-    alert('novo jogo')
-    openClose(divSearch)
+    clearFrom()
+    startGame()
+    openClose(divSearch,null)
 })
 
+//verify we leter exists in text
+function verifyLeter(){
+    var leter = inputSearch.value.toUpperCase()
+    countLeter = 0
+    pos = secret.indexOf(leter)
+    ok = secret.indexOf(leter) !== -1
+
+    while(pos != -1){
+        countLeter ++
+        countSilab.children[pos].textContent = leter
+        pos = secret.indexOf(leter, pos +1)
+    }
+    console.log(secret)
+    console.log(ok)
 
 
+}
 
 
 //função para abrir e fechar página
@@ -122,6 +161,35 @@ function openClose(pagOpen=null, pagClose=null){
     
         pagClose.classList.add('hidden')
         pagClose.classList.remove('flex')
+    }
+
+}
+
+function startGame(){
+    pagPlay.classList.add('start')
+    sortText()
+}
+
+function stopGame(){
+    pagPlay.classList.remove('start')
+}
+
+function clearFrom(){
+    while(countSilab.hasChildNodes()){
+        countSilab.removeChild(countSilab.lastChild)
+    }
+}
+//text random
+function sortText(){
+    const ListWords = JSON.parse(localStorage.getItem('words'))
+    var text = ListWords[Math.floor(Math.random()*ListWords.length)]
+    secret = text.toUpperCase()
+    leter =''
+    for(let index=0; index < text.length; index++) {
+        var p = document.createElement("p")
+        p.className="border-b-4 border-[#86734d] px-3 text-gray-50 text-xl font-medium" 
+        //p.textContent = text[index].toUpperCase()
+        countSilab.appendChild(p)
     }
 
 }
