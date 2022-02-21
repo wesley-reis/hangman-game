@@ -38,8 +38,18 @@ let audioError = document.querySelector("#audioError");
 let audioWin = document.querySelector("#audioWin");
 let audioFinish = document.querySelector("#audioFinish");
 
+//forca
+let forcaPalco = document.querySelector("#forca")
+
+//vidas
+var life = document.querySelector("#life")
+
 //secret text
 var secret =''
+var person = 0
+var vidas = 7
+
+life.textContent = `Vidas: ${vidas}`
 
 //search silab
 inputSearch.addEventListener('keyup', (e) => {
@@ -172,17 +182,9 @@ function error(res, letter){
     if (res === true) {
         var totalLetter = countSilab.children.length
         var totalAcept = countAdd.children.length
-        console.log(secret)
         if(totalAcept === totalLetter){
             somWin()
             openClose('', divSearch)
-
-            message.classList.remove('hidden')
-            message.innerHTML = '<p class="text-4xl font-bold text-[#608C62]">YOU WIN</p>'
-
-            setTimeout(() => {
-                message.classList.add('hidden')
-            }, 5000)
         }
         return
     }
@@ -208,17 +210,14 @@ function renderError(){
     var totalError = letterError.children.length
     if(totalError < 7){
        somError()
+       vidas --
+       life.textContent = `Vidas: ${vidas}`
     }else{
         somFinish()
         imageFinish()
+        life.textContent = "Vidas: 0"
+        vidas = 7
         openClose('',divSearch)
-
-        message.classList.remove('hidden')
-        message.innerHTML = '<p class="text-4xl font-bold text-[#AE5336]">YOU LOSE</p>'
-
-        setTimeout(() => {
-            message.classList.add('hidden')
-        }, 5000)
     }
 }
 
@@ -228,22 +227,20 @@ function somError(){
 
 function somFinish(){
     audioFinish.play()
+    imageFinish()
 }
 
 function somWin(){
     audioWin.play()
-}
-
-function imageInit(){
-    //
+    imageWin()
 }
 
 function imageFinish(){
-    console.log("imagem de finish")
+    searchImage("youlose")
 }
 
 function imageWin(){
-    //
+    searchImage("youwin")
 }
 
 //função para abrir e fechar página
@@ -261,10 +258,15 @@ function openClose(pagOpen=null, pagClose=null){
 function startGame(){
     pagPlay.classList.add('start')
     sortText()
+    numRandom()
+    searchImage("init")
+    life.textContent = `Vidas: ${vidas}`
+    life.classList.remove("hidden")
 }
 
 function stopGame(){
     pagPlay.classList.remove('start')
+    life.classList.add("hidden")
 }
 
 function clearFrom(){
@@ -285,7 +287,6 @@ function sortText(){
     const ListWords = JSON.parse(localStorage.getItem('words'))
     var text = ListWords[Math.floor(Math.random()*ListWords.length)]
     secret = text.toUpperCase()
-    leter =''
     for(let index=0; index < text.length; index++) {
         var p = document.createElement("p")
         p.className="border-b-4 border-[#86734d] px-3 text-gray-50 text-xl font-medium" 
@@ -294,4 +295,17 @@ function sortText(){
 
 }
 
+//escolher personagem do jogo
+function searchImage(image="forca"){
+    console.log(forcaPalco.src)
+    if(image == "forca"){
+        forcaPalco.src = `./src/assets/img/${image}.png`
+    }else{
+        forcaPalco.src = `./src/assets/img/person-${person}/${image}.png`
+    }
 
+}
+
+function numRandom(){
+    person = Math.floor(Math.random()*5+1)
+}

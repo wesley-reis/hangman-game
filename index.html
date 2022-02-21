@@ -74,9 +74,9 @@
         <!-- Página Jogo -->
         <div id="pagPlay" class="hidden flex-col gap-2 justify-between items-center w-full">
           <div class="flex flex-col items-start w-full mb-5 md:w-2/5">
-            <div id="silab-count" class="flex justify-center items-center gap-3 w-full"></div>
-            <div id="forca" class="w-full -mb-8">
-              <img class="mx-auto" src="./src/assets/img/person-1/forca-1-1.png" width="60%" />
+            <div id="silab-count" class="grid grid-cols-12 sm:flex sm:justify-center sm:items-center p-2 gap-3 w-full overflow-hidden"></div>
+            <div class="w-full -mb-8">
+              <img id="forca" class="mx-auto" src="./src/assets/img/forca.png" width="60%" />
             </div>
           </div>
 
@@ -95,7 +95,7 @@
     </div>
 
     <!-- Search -->
-    <div class="absolute mt-8 right-5">
+    <div class="absolute mt-16 sm:mt-8 right-5">
       <div>
         <!-- Search -->
         <div id="divSearch"
@@ -117,6 +117,10 @@
         <!-- letter error -->
         <div id="letter-error" class="hidden flex justify-center items-center gap-3 bg-white py-1 px-2 mx-auto rounded-md mt-3"></div>
       </div>
+    </div>
+
+    <div class="absolute mt-20 flex flex-col left-10 sm:mt-8 sm:left-[50%] text-[#CDB077]">
+        <p id="life" class="hidden">Vidas: 07</p>
     </div>
 
     <div id="count-acert" class="hidden"></div>
