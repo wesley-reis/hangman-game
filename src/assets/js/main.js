@@ -87,6 +87,7 @@ btnCancelPlay.addEventListener('click', () => {
     stopGame()
     openClose(pagHome, pagPlay)
     letterError.classList.add('hidden')
+    vidas = 7
     openClose('',divSearch)
 })
 
@@ -158,6 +159,16 @@ btnNewPlay.addEventListener('click', () => {
 //verify we leter exists in text
 function verifyLeter(){
     var letter = inputSearch.value.toUpperCase()
+    if (!letter) {
+        message.classList.remove('hidden')
+        message.innerHTML = '<p class="text-lg font-bold text-[#AE5336]">preencha o campo por favor</p>'
+
+        setTimeout(() => {
+            message.classList.add('hidden')
+        }, 3000)
+
+        return
+    }
     var countLetter = 0
     pos = secret.indexOf(letter)
     res = secret.indexOf(letter) !== -1
@@ -184,6 +195,7 @@ function error(res, letter){
         var totalAcept = countAdd.children.length
         if(totalAcept === totalLetter){
             somWin()
+            vidas = 7
             openClose('', divSearch)
         }
         return
